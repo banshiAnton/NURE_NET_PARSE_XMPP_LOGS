@@ -44,6 +44,30 @@ namespace CheckLogsApatch
             }
         }
 
+        public bool testLogFilter(FilterProps filter)
+        {
+            if (filter.responseStatus != responseStatus && filter.responseStatus != -1)
+            {
+                return false;
+            }
+
+            var regIP = new Regex(filter.ip);
+
+            if (!regIP.IsMatch(ip))
+            {
+                return false;
+            }
+
+            var regPath = new Regex(filter.path);
+
+            if (!regPath.IsMatch(path))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool testLog(string rawLog)
         {
             return regex.IsMatch(rawLog);

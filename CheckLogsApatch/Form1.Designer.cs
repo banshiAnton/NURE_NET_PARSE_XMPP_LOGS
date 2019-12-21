@@ -79,6 +79,7 @@
             this.filterFileName.Name = "filterFileName";
             this.filterFileName.Size = new System.Drawing.Size(100, 20);
             this.filterFileName.TabIndex = 3;
+            this.filterFileName.TextChanged += new System.EventHandler(this.filterFileName_TextChanged);
             // 
             // ipFilterLable
             // 
@@ -95,6 +96,7 @@
             this.filterIP.Name = "filterIP";
             this.filterIP.Size = new System.Drawing.Size(100, 20);
             this.filterIP.TabIndex = 5;
+            this.filterIP.TextChanged += new System.EventHandler(this.filterIP_TextChanged);
             // 
             // filterResponseStatus
             // 
@@ -102,6 +104,8 @@
             this.filterResponseStatus.Name = "filterResponseStatus";
             this.filterResponseStatus.Size = new System.Drawing.Size(100, 20);
             this.filterResponseStatus.TabIndex = 6;
+            this.filterResponseStatus.Text = "-1";
+            this.filterResponseStatus.TextChanged += new System.EventHandler(this.filterResponseStatus_TextChanged);
             // 
             // filterResponseStatusLable
             // 

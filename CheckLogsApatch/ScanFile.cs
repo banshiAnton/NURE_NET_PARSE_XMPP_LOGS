@@ -10,7 +10,11 @@ namespace CheckLogsApatch
 {
     public class ScanFile
     {
-        public List<Log> logs = new List<Log>();
+        public List<Log> allLogs = new List<Log>();
+
+        public List<Log> filteredLogs = new List<Log>();
+
+        public FilterProps filter = new FilterProps();
 
         public static string defaultPath = @"c:\xampp\apache\logs\access.log";
 
@@ -34,7 +38,7 @@ namespace CheckLogsApatch
 
         public void readLogsFile()
         {
-            logs.Clear();
+            allLogs.Clear();
             var file = new StreamReader(path);
             string line = string.Empty;
             while ((line = file.ReadLine()) != null)
@@ -49,11 +53,24 @@ namespace CheckLogsApatch
             if (Log.testLog(logLine))
             {
                 Log log = new Log(logLine);
-                logs.Add(log);
+                allLogs.Add(log);
                 Console.WriteLine($"{log}");
             } else
             {
                 Console.WriteLine($"[parseLogLine] INVALID FORMAT {logLine}");
+            }
+        }
+
+        public void filterLogs()
+        {
+            filteredLogs.Clear();
+
+            foreach(var log in allLogs)
+            {
+                if (log.testLogFilter(filter))
+                {
+                    filteredLogs.Add(log);
+                }
             }
         }
     }

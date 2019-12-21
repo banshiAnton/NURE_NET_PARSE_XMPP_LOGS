@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -14,6 +15,8 @@ namespace CheckLogsApatch
     public partial class Form1 : Form
     {
         ScanFile scanFileInst;
+
+        BindingSource binding;
 
         public Form1()
         {
@@ -35,13 +38,14 @@ namespace CheckLogsApatch
                 MessageBox.Show("[Error] Invalid file: " + error.Message);
             }
 
-            updateUI();
+            setBindings();
+            applyFilters();
         }
 
-        public void updateUI()
+        public void setBindings()
         {
-            BindingSource binding = new BindingSource();
-            binding.DataSource = scanFileInst.logs;
+            binding = new BindingSource();
+            binding.DataSource = scanFileInst.filteredLogs;
             list.DataSource = binding;
         }
 
@@ -58,6 +62,49 @@ namespace CheckLogsApatch
                     scanFileInst.path = openFileDialog.FileName;
                 }
             }
+        }
+
+        public bool checkValidStatus(string resStatusStr)
+        {
+            var regDig = new Regex(@"\d");
+            var regNoDig = new Regex(@"[^-0-9]");
+            return !regNoDig.IsMatch(resStatusStr) && regDig.IsMatch(resStatusStr);
+        }
+
+        public void applyFilters()
+        {
+            scanFileInst.filter.ip = filterIP.Text.Trim();
+            scanFileInst.filter.path = filterFileName.Text.Trim();
+
+            string resStatusStr = filterResponseStatus.Text.Trim();
+
+            if (checkValidStatus(resStatusStr))
+            {
+               scanFileInst.filter.responseStatus = int.Parse(resStatusStr);
+            } else
+            {
+               scanFileInst.filter.responseStatus = -1;
+            }
+    
+
+            Console.WriteLine($"[applyFilters] {scanFileInst.filter}");
+            scanFileInst.filterLogs();
+            binding.ResetBindings(true);
+        }
+
+        private void filterFileName_TextChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void filterIP_TextChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void filterResponseStatus_TextChanged(object sender, EventArgs e)
+        {
+            applyFilters();
         }
     }
 }
