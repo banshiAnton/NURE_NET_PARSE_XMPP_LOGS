@@ -1,0 +1,9 @@
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\bin\Debug\CheckLogsApatch.exe.config
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\bin\Debug\CheckLogsApatch.exe
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\bin\Debug\CheckLogsApatch.pdb
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.csprojResolveAssemblyReference.cache
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.Form1.resources
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.Properties.Resources.resources
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.csproj.GenerateResource.Cache
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.exe
+c:\users\anton\documents\visual studio 2015\Projects\CheckLogsApatch\CheckLogsApatch\obj\Debug\CheckLogsApatch.pdb
