@@ -16,7 +16,7 @@ namespace CheckLogsApatch
     {
         ScanFile scanFileInst;
 
-        BindingSource binding;
+        BindingSource binding = null;
 
         public Form1()
         {
@@ -89,7 +89,10 @@ namespace CheckLogsApatch
 
             Console.WriteLine($"[applyFilters] {scanFileInst.filter}");
             scanFileInst.filterLogs();
-            binding.ResetBindings(true);
+            if (binding != null)
+            {
+                binding.ResetBindings(true);
+            }
         }
 
         private void filterFileName_TextChanged(object sender, EventArgs e)
