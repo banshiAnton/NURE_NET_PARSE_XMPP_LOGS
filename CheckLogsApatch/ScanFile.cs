@@ -41,14 +41,15 @@ namespace CheckLogsApatch
             }
         }
 
-        public void parseLogLine(string log)
+        public void parseLogLine(string logLine)
         {
-            var regex = new Regex("^(::)?(.+) - - \\[(.+)\\] \"(.+) (.+) (.+)\" (\\d+) (\\d+)", RegexOptions.IgnoreCase);
-            MatchCollection matches = regex.Matches(log);
-
-            foreach (Match match in matches)
+            if (Log.testLog(logLine))
             {
-                Console.WriteLine($"[IP=] {match.Groups[2].Value} [DATE=] {match.Groups[3].Value} [METHOD=] {match.Groups[4].Value} [PATH=] {match.Groups[5].Value} [PROTOCOL=] {match.Groups[6].Value} [STATUS=] {match.Groups[7].Value} [SIZE=] {match.Groups[8].Value}\n");
+                Log log = new Log(logLine);
+                Console.WriteLine($"{log}");
+            } else
+            {
+                Console.WriteLine($"[parseLogLine] INVALID FORMAT {logLine}");
             }
         }
     }
