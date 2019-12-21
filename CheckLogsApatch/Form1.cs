@@ -34,6 +34,15 @@ namespace CheckLogsApatch
             } catch (Exception error) {
                 MessageBox.Show("[Error] Invalid file: " + error.Message);
             }
+
+            updateUI();
+        }
+
+        public void updateUI()
+        {
+            BindingSource binding = new BindingSource();
+            binding.DataSource = scanFileInst.logs;
+            list.DataSource = binding;
         }
 
         private void dialogOpenFile()

@@ -10,6 +10,8 @@ namespace CheckLogsApatch
 {
     public class ScanFile
     {
+        public List<Log> logs = new List<Log>();
+
         public static string defaultPath = @"c:\xampp\apache\logs\access.log";
 
         public string path { get; set; } = string.Empty; 
@@ -32,6 +34,7 @@ namespace CheckLogsApatch
 
         public void readLogsFile()
         {
+            logs.Clear();
             var file = new StreamReader(path);
             string line = string.Empty;
             while ((line = file.ReadLine()) != null)
@@ -46,6 +49,7 @@ namespace CheckLogsApatch
             if (Log.testLog(logLine))
             {
                 Log log = new Log(logLine);
+                logs.Add(log);
                 Console.WriteLine($"{log}");
             } else
             {
