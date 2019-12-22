@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.startScan = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.datePickerTime = new System.Windows.Forms.DateTimePicker();
             this.filterFileNameLabel = new System.Windows.Forms.Label();
             this.filterFileName = new System.Windows.Forms.TextBox();
             this.ipFilterLable = new System.Windows.Forms.Label();
@@ -44,6 +44,7 @@
             this.protocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.responseStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.responseSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datePickerDate = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.list)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,17 +58,21 @@
             this.startScan.UseVisualStyleBackColor = true;
             this.startScan.Click += new System.EventHandler(this.startScan_Click);
             // 
-            // dateTimePicker1
+            // datePickerTime
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(13, 59);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(139, 20);
-            this.dateTimePicker1.TabIndex = 1;
+            this.datePickerTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.datePickerTime.Location = new System.Drawing.Point(130, 77);
+            this.datePickerTime.Name = "datePickerTime";
+            this.datePickerTime.ShowUpDown = true;
+            this.datePickerTime.Size = new System.Drawing.Size(139, 20);
+            this.datePickerTime.TabIndex = 1;
+            this.datePickerTime.Value = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            this.datePickerTime.ValueChanged += new System.EventHandler(this.datePickerTime_ValueChanged);
             // 
             // filterFileNameLabel
             // 
             this.filterFileNameLabel.AutoSize = true;
-            this.filterFileNameLabel.Location = new System.Drawing.Point(158, 62);
+            this.filterFileNameLabel.Location = new System.Drawing.Point(397, 62);
             this.filterFileNameLabel.Name = "filterFileNameLabel";
             this.filterFileNameLabel.Size = new System.Drawing.Size(81, 13);
             this.filterFileNameLabel.TabIndex = 2;
@@ -75,7 +80,7 @@
             // 
             // filterFileName
             // 
-            this.filterFileName.Location = new System.Drawing.Point(245, 59);
+            this.filterFileName.Location = new System.Drawing.Point(484, 63);
             this.filterFileName.Name = "filterFileName";
             this.filterFileName.Size = new System.Drawing.Size(100, 20);
             this.filterFileName.TabIndex = 3;
@@ -84,7 +89,7 @@
             // ipFilterLable
             // 
             this.ipFilterLable.AutoSize = true;
-            this.ipFilterLable.Location = new System.Drawing.Point(351, 62);
+            this.ipFilterLable.Location = new System.Drawing.Point(590, 65);
             this.ipFilterLable.Name = "ipFilterLable";
             this.ipFilterLable.Size = new System.Drawing.Size(45, 13);
             this.ipFilterLable.TabIndex = 4;
@@ -92,7 +97,7 @@
             // 
             // filterIP
             // 
-            this.filterIP.Location = new System.Drawing.Point(402, 59);
+            this.filterIP.Location = new System.Drawing.Point(641, 62);
             this.filterIP.Name = "filterIP";
             this.filterIP.Size = new System.Drawing.Size(100, 20);
             this.filterIP.TabIndex = 5;
@@ -100,7 +105,7 @@
             // 
             // filterResponseStatus
             // 
-            this.filterResponseStatus.Location = new System.Drawing.Point(620, 59);
+            this.filterResponseStatus.Location = new System.Drawing.Point(872, 62);
             this.filterResponseStatus.Name = "filterResponseStatus";
             this.filterResponseStatus.Size = new System.Drawing.Size(100, 20);
             this.filterResponseStatus.TabIndex = 6;
@@ -110,7 +115,7 @@
             // filterResponseStatusLable
             // 
             this.filterResponseStatusLable.AutoSize = true;
-            this.filterResponseStatusLable.Location = new System.Drawing.Point(508, 62);
+            this.filterResponseStatusLable.Location = new System.Drawing.Point(760, 66);
             this.filterResponseStatusLable.Name = "filterResponseStatusLable";
             this.filterResponseStatusLable.Size = new System.Drawing.Size(106, 13);
             this.filterResponseStatusLable.TabIndex = 7;
@@ -129,7 +134,7 @@
             this.responseSize});
             this.list.Location = new System.Drawing.Point(12, 103);
             this.list.Name = "list";
-            this.list.Size = new System.Drawing.Size(708, 418);
+            this.list.Size = new System.Drawing.Size(960, 469);
             this.list.TabIndex = 8;
             // 
             // ip
@@ -174,11 +179,21 @@
             this.responseSize.HeaderText = "Response Size";
             this.responseSize.Name = "responseSize";
             // 
+            // datePickerDate
+            // 
+            this.datePickerDate.Location = new System.Drawing.Point(130, 51);
+            this.datePickerDate.Name = "datePickerDate";
+            this.datePickerDate.Size = new System.Drawing.Size(139, 20);
+            this.datePickerDate.TabIndex = 9;
+            this.datePickerDate.Value = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            this.datePickerDate.ValueChanged += new System.EventHandler(this.datePickerDate_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 533);
+            this.ClientSize = new System.Drawing.Size(984, 584);
+            this.Controls.Add(this.datePickerDate);
             this.Controls.Add(this.list);
             this.Controls.Add(this.filterResponseStatusLable);
             this.Controls.Add(this.filterResponseStatus);
@@ -186,7 +201,7 @@
             this.Controls.Add(this.ipFilterLable);
             this.Controls.Add(this.filterFileName);
             this.Controls.Add(this.filterFileNameLabel);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.datePickerTime);
             this.Controls.Add(this.startScan);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -199,7 +214,7 @@
         #endregion
 
         private System.Windows.Forms.Button startScan;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker datePickerTime;
         private System.Windows.Forms.Label filterFileNameLabel;
         private System.Windows.Forms.TextBox filterFileName;
         private System.Windows.Forms.Label ipFilterLable;
@@ -214,6 +229,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn protocol;
         private System.Windows.Forms.DataGridViewTextBoxColumn responseStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn responseSize;
+        private System.Windows.Forms.DateTimePicker datePickerDate;
     }
 }
 

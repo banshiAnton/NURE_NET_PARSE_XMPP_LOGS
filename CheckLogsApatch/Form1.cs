@@ -73,6 +73,12 @@ namespace CheckLogsApatch
 
         public void applyFilters()
         {
+            DateTime pickDate = datePickerDate.Value;
+            DateTime pickTime = datePickerTime.Value;
+
+            DateTime filterDate = new DateTime(pickDate.Year, pickDate.Month, pickDate.Day, pickTime.Hour, pickTime.Minute, pickTime.Second);
+
+            scanFileInst.filter.date = filterDate;
             scanFileInst.filter.ip = filterIP.Text.Trim();
             scanFileInst.filter.path = filterFileName.Text.Trim();
 
@@ -93,6 +99,22 @@ namespace CheckLogsApatch
             {
                 binding.ResetBindings(true);
             }
+
+            list.Columns.RemoveAt(7);
+
+            foreach (DataGridViewColumn col in list.Columns)
+            {
+                col.ReadOnly = true;
+            }
+
+            foreach (DataGridViewRow row in list.Rows)
+            {
+                Log l = row.DataBoundItem as Log;
+                if ((l != null) && l.accessError)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
         }
 
         private void filterFileName_TextChanged(object sender, EventArgs e)
@@ -106,6 +128,16 @@ namespace CheckLogsApatch
         }
 
         private void filterResponseStatus_TextChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void datePickerTime_ValueChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void datePickerDate_ValueChanged(object sender, EventArgs e)
         {
             applyFilters();
         }

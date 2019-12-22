@@ -18,7 +18,9 @@ namespace CheckLogsApatch
 
         public static string defaultPath = @"c:\xampp\apache\logs\access.log";
 
-        public string path { get; set; } = string.Empty; 
+        public string path { get; set; } = string.Empty;
+
+        public static int accessErrorTime = 10; // 1 min
 
         public ScanFile()
         {
@@ -38,26 +40,35 @@ namespace CheckLogsApatch
 
         public void readLogsFile()
         {
+            Log prev = null;
             allLogs.Clear();
             var file = new StreamReader(path);
             string line = string.Empty;
             while ((line = file.ReadLine()) != null)
             {
-                parseLogLine(line);
+                Log next = parseLogLine(line);
+                if (next == null)
+                {
+                    continue;
+                }
+                checkAccessError(prev, next);
+                prev = next;
                 // Console.WriteLine("[checkFileByDefaultPath]: Line: " + line);
             }
         }
 
-        public void parseLogLine(string logLine)
+        public Log parseLogLine(string logLine)
         {
             if (Log.testLog(logLine))
             {
                 Log log = new Log(logLine);
                 allLogs.Add(log);
                 Console.WriteLine($"{log}");
+                return log;
             } else
             {
                 Console.WriteLine($"[parseLogLine] INVALID FORMAT {logLine}");
+                return null;
             }
         }
 
@@ -70,6 +81,25 @@ namespace CheckLogsApatch
                 if (log.testLogFilter(filter))
                 {
                     filteredLogs.Add(log);
+                }
+            }
+        }
+
+        public void checkAccessError(Log prev, Log next)
+        {
+            if (prev == null || next == null)
+            {
+                return;
+            }
+
+            if ((prev.ip == next.ip) && (prev.path == next.path))
+            {
+                double dateDiff = (next.date - prev.date).TotalSeconds;
+
+                if (dateDiff <= accessErrorTime)
+                {
+                    prev.accessError = true;
+                    next.accessError = true;
                 }
             }
         }
